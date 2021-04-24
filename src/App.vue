@@ -1,26 +1,59 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <header id="title">
+        <h1>Animal Crossing New Horizons Currently Catchable</h1>
+    </header>
+    <DateHeaderContainer :date="currentDate" :time="currentTime" />
+    <ScheduleContainer v-bind:hours="hours"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import DateHeaderContainer from './components/DateHeaderContainer.vue'
+import ScheduleContainer from './components/ScheduleContainer.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+    name: 'App',
+    components: {
+    ScheduleContainer,
+    DateHeaderContainer
+    },
+    data() {
+        let now = new Date();
+        let dateFormat = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric'});
+        let dateString = dateFormat.format(now);
+        let timeFormat = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' });
+        let timeString = timeFormat.format(now);
+        let currentHour = timeFormat.formatToParts(now);
+        now.setHours(now.getHours() + 1);
+        let nextHour = timeFormat.formatToParts(now);
+        now.setHours(now.getHours() + 1);
+        let nextNextHour = timeFormat.formatToParts(now);
+        let hours = [currentHour, nextHour, nextNextHour];
+
+        return {
+            currentDate: dateString,
+            currentTime: timeString,
+            hours: hours
+        }
+    }
 }
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Patua+One&display=swap');
+
+body {
+    background-color: #fcefdb;
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+    font-weight: normal;
+    font-family: 'Patua One', sans-serif, cursive;
+    text-align: center;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+    max-width: 800px;
+    margin: 0 auto;
 }
 </style>
