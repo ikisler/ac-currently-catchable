@@ -13,11 +13,11 @@ fs.readFile('./test.json', 'utf8', (err, data) => {
         fishes = query.cargoquery;
 
         fishes.forEach(fish => {
-            fishDetails.addFishDetails(fish.title);
-            fishSchedule.addFishSchedule(fish.title);
+            fishDetails.add(fish.title);
+            fishSchedule.add(fish.title);
         });
 
-        fishSchedule.writeFishSchedule();
-        fishDetails.writeFishDetails();
+        fishSchedule.write();
+        fishDetails.write();
     }
 });

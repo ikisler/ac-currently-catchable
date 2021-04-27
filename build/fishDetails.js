@@ -3,14 +3,14 @@ const fs = require('fs');
 class FishDetails {
     allFish = {};
 
-    addFishDetails(fish) {
+    add(fish) {
         this.allFish[fish.name] = {
             name: fish.name,
             size: fish['shadow size'].toLowerCase()
         };
     }
 
-    writeFishDetails() {
+    write() {
         const data = JSON.stringify(this.allFish);
         fs.writeFile('../src/config/fish.json', data, 'utf8', (err) => {
 

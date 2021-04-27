@@ -103,7 +103,7 @@ class FishSchedule {
         "n m12": 11,
     };
 
-    addFishSchedule(fish) {
+    add(fish) {
         for (const nookipediaM in this.monthMappings) {
             if (fish[nookipediaM] == 1) {
                 if (fish[nookipediaM + ' time'] == "All day") {
@@ -121,7 +121,7 @@ class FishSchedule {
         }
     }
 
-    writeFishSchedule() {
+    write() {
         const data = JSON.stringify(this.schedule);
         fs.writeFile('../src/config/fishSchedule.json', data, 'utf8', (err) => {
 
