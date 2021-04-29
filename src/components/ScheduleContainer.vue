@@ -137,6 +137,11 @@ export default {
     justify-content: center;
 }
 
+.fish-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 ul {
     padding-inline-start: 0;
 }
@@ -145,6 +150,7 @@ li {
     list-style-type: none;
     margin: 1em;
     border-radius: 1em;
+    padding: 2px 10px;
 }
 
 li:nth-of-type(n) {
@@ -165,6 +171,7 @@ li:nth-of-type(4n) {
 
 .fish img {
     margin: 2px;
+    vertical-align: middle;
 }
 
 .fish-tiny {
