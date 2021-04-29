@@ -3,12 +3,14 @@
         <h1>Animal Crossing New Horizons Currently Catchable</h1>
     </header>
     <DateHeaderContainer :date="currentDate" :time="currentTime" />
-    <ScheduleContainer v-bind:hours="hours"/>
+    <ScheduleContainer v-bind:hours="hours" v-bind:month="month" :allFish="allFish" :fishSchedule="fishSchedule" />
 </template>
 
 <script>
 import DateHeaderContainer from './components/DateHeaderContainer.vue'
 import ScheduleContainer from './components/ScheduleContainer.vue'
+import allFish from './config/fish.json';
+import fishSchedule from './config/fishSchedule.json';
 
 export default {
     name: 'App',
@@ -28,11 +30,15 @@ export default {
         now.setHours(now.getHours() + 1);
         let nextNextHour = timeFormat.formatToParts(now);
         let hours = [currentHour, nextHour, nextNextHour];
+        let month = now.getMonth();
 
         return {
             currentDate: dateString,
             currentTime: timeString,
-            hours: hours
+            hours: hours,
+            month: month,
+            allFish: allFish,
+            fishSchedule: fishSchedule
         }
     }
 }

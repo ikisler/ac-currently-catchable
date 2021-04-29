@@ -16,58 +16,14 @@
 export default {
     name: 'schedule',
     props: {
-        hours: Array
+        hours: Array,
+        month: Number,
+        allFish: Array,
+        fishSchedule: Object
     },
     data() {
-        let schedule = {
-            nightTime: [
-                "nfish1",
-                "nfish2"
-            ],
-            dayTime: [
-                "dfish1",
-                "dfish2"
-            ],
-            allDay: [
-                "fish1",
-                "fish2",
-                "fish3"
-            ]
-        };
-
-        let fish = {
-            fish1: {
-                name: "fish1",
-                size: "medium"
-            },
-            fish2: {
-                name: "fish2",
-                size: "tiny"
-            },
-            fish3: {
-                name: "fish3",
-                size: "medium"
-            },
-            nfish1: {
-                name: "night fish 1",
-                size: "medium"
-            },
-            nfish2: {
-                name: "night fish 2",
-                size: "medium"
-            },
-            dfish1: {
-                name: "day fish 1",
-                size: "medium"
-            },
-            dfish2: {
-                name: "day fish 2",
-                size: "medium"
-            }
-        }
-
         let fishImageMap = {
-            tiny: {
+            'x-small': {
                 source: "images/fish.svg",
                 alt: "Tiny fish",
                 class: "fish-tiny"
@@ -82,27 +38,66 @@ export default {
                 alt: "Medium fish",
                 class: "fish-med"
             },
+            'medium w/fin': {
+                source: "images/fin-fish.svg",
+                alt: "Medium fish with fin",
+                class: "fish-med"
+            },
             large: {
                 source: "images/fish.svg",
                 alt: "Large fish",
                 class: "fish-large"
             },
-            gigantic: {
+            'x-large': {
+                source: "images/fish.svg",
+                alt: "Gigantic fish",
+                class: "fish-x-large"
+            },
+            'xx-large': {
                 source: "images/fish.svg",
                 alt: "Gigantic fish",
                 class: "fish-gigantic"
+            },
+            huge: {
+                source: "images/fish.svg",
+                alt: "Gigantic fish",
+                class: "fish-gigantic"
+            },
+            'large w/fin': {
+                source: "images/fin-fish.svg",
+                alt: "Large fish with fin",
+                class: "fish-gigantic"
+            },
+            long: {
+                source: "images/long-fish.svg",
+                alt: "Long fish",
+                class: "fish-medium"
             }
         }
 
         let scheduleData = [];
         this.hours.forEach(hourData => {
-            let currentSchedule = {};
+            let currentSchedule = [];
+            let schedule = this.fishSchedule[this.month];
             let hourNum = Number(hourData[0].value);
+
+            // Will add at most two of these
             if (hourData[4].value == 'PM' && hourNum > 9 || hourData[4].value == 'AM' && hourNum < 4) {
-                currentSchedule = schedule.nightTime;
-            } else {
-                currentSchedule = schedule.dayTime;
+                currentSchedule = currentSchedule.concat(schedule['9pm']);
             }
+
+            if (hourData[4].value == 'PM' && hourNum > 4 || hourData[4].value == 'AM' && hourNum < 9) {
+                currentSchedule = currentSchedule.concat(schedule['4pm']);
+            }
+
+            if (hourData[4].value == 'AM' && hourNum > 9 || hourData[4].value == 'PM' && hourNum < 4) {
+                currentSchedule = currentSchedule.concat(schedule['9am']);
+            }
+
+            if (hourData[4].value == 'AM' && hourNum > 4 || hourData[4].value == 'PM' && hourNum < 9) {
+                currentSchedule = currentSchedule.concat(schedule['4am']);
+            }
+
             scheduleData.push({
                 display: hourData[0].value + " " + hourData[4].value,
                 school: [...new Set([...currentSchedule, ...schedule.allDay])]
@@ -110,7 +105,6 @@ export default {
         });
         return {
             schedule: scheduleData,
-            allFish: fish,
             fishImage: fishImageMap
         }
     }
@@ -189,8 +183,11 @@ li:nth-of-type(4n) {
     width: 40px;
 }
 
-.fish-gigantic {
+.fish-x-large {
     width: 50px;
 }
 
+.fish-gigantic {
+    width: 60px;
+}
 </style>
