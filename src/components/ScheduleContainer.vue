@@ -4,7 +4,7 @@
             <h1 class="hour-name">{{ hour.display }}</h1>
             <ul class="fish-container">
                 <li class="fish" v-for="fish in hour.school" :key="fish">
-                    <img :class="fishImage[allFish[fish].size].class" :src="require('@/assets/' + fishImage[allFish[fish].size].source)" :title="fishImage[allFish[fish].size].alt" :alt="fishImage[allFish[fish].size].alt">
+                    <img :class="fishImageMap[allFish[fish].size].class" :src="require('@/assets/' + fishImageMap[allFish[fish].size].source)" :title="fishImageMap[allFish[fish].size].alt" :alt="fishImageMap[allFish[fish].size].alt">
                     <span>{{ allFish[fish].name }}</span>
                 </li>
             </ul>
@@ -18,63 +18,11 @@ export default {
     props: {
         hours: Array,
         month: Number,
-        allFish: Array,
-        fishSchedule: Object
+        allFish: Object,
+        fishSchedule: Object,
+        fishImageMap: Object
     },
     data() {
-        let fishImageMap = {
-            'x-small': {
-                source: "images/fish.svg",
-                alt: "Tiny fish",
-                class: "fish-tiny"
-            },
-            small: {
-                source: "images/fish.svg",
-                alt: "Small fish",
-                class: "fish-small"
-            },
-            medium: {
-                source: "images/fish.svg",
-                alt: "Medium fish",
-                class: "fish-med"
-            },
-            'medium w/fin': {
-                source: "images/fin-fish.svg",
-                alt: "Medium fish with fin",
-                class: "fish-med"
-            },
-            large: {
-                source: "images/fish.svg",
-                alt: "Large fish",
-                class: "fish-large"
-            },
-            'x-large': {
-                source: "images/fish.svg",
-                alt: "Gigantic fish",
-                class: "fish-x-large"
-            },
-            'xx-large': {
-                source: "images/fish.svg",
-                alt: "Gigantic fish",
-                class: "fish-gigantic"
-            },
-            huge: {
-                source: "images/fish.svg",
-                alt: "Gigantic fish",
-                class: "fish-gigantic"
-            },
-            'large w/fin': {
-                source: "images/fin-fish.svg",
-                alt: "Large fish with fin",
-                class: "fish-gigantic"
-            },
-            long: {
-                source: "images/long-fish.svg",
-                alt: "Long fish",
-                class: "fish-medium"
-            }
-        }
-
         let scheduleData = [];
         this.hours.forEach(hourData => {
             let currentSchedule = [];
@@ -105,7 +53,6 @@ export default {
         });
         return {
             schedule: scheduleData,
-            fishImage: fishImageMap
         }
     }
 }
@@ -187,14 +134,14 @@ li:nth-of-type(4n) {
 }
 
 .fish-large {
-    width: 40px;
-}
-
-.fish-x-large {
     width: 50px;
 }
 
-.fish-gigantic {
+.fish-x-large {
     width: 60px;
+}
+
+.fish-gigantic {
+    width: 70px;
 }
 </style>

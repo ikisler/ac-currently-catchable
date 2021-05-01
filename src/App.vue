@@ -3,7 +3,7 @@
         <h1>Animal Crossing New Horizons Currently Catchable</h1>
     </header>
     <DateHeaderContainer :date="currentDate" :time="currentTime" />
-    <ScheduleContainer v-bind:hours="hours" v-bind:month="month" :allFish="allFish" :fishSchedule="fishSchedule" />
+    <ScheduleContainer v-bind:hours="hours" v-bind:month="month" :allFish="allFish" :fishSchedule="fishSchedule" :fishImageMap="fishImageMap" />
 </template>
 
 <script>
@@ -11,6 +11,7 @@ import DateHeaderContainer from './components/DateHeaderContainer.vue'
 import ScheduleContainer from './components/ScheduleContainer.vue'
 import allFish from './config/fish.json';
 import fishSchedule from './config/fishSchedule.json';
+import fishImageMap from './config/fishImageMap.json';
 
 export default {
     name: 'App',
@@ -38,7 +39,8 @@ export default {
             hours: hours,
             month: month,
             allFish: allFish,
-            fishSchedule: fishSchedule
+            fishSchedule: fishSchedule,
+            fishImageMap: fishImageMap
         }
     }
 }
