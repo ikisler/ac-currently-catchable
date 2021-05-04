@@ -3,7 +3,7 @@ on:
   pull_request:
     types: closed
     branches:
-      - master
+      - main
 jobs:
   build_vue:
     runs-on: ubuntu-latest
