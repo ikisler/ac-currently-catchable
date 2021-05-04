@@ -1,0 +1,19 @@
+name: Build Vue and deploy to GH Pages
+on:
+  pull_request:
+    types: closed
+    branches:
+      - master
+jobs:
+  build_vue:
+    runs-on: ubuntu-latest
+    name: Build Vue
+    steps:
+    - uses: actions/checkout@v2
+    - id: Build-Vue
+      uses: xRealNeon/VuePagesAction@1.0.0
+      with:
+        username: 'ikisler'
+        reponame: 'ac-currently-catchable'
+        token: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
+        
