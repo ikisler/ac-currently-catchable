@@ -1,6 +1,8 @@
 # AC Currently Catchable
 AC Currently Catchable is a Vue.js app showing currently catchable fish for Nintendo's Animal Crossing: New Horizons game.
 
+### [Check out the demo!](https://ikisler.github.io/ac-currently-catchable/)
+
 ![Screenshot of project](https://user-images.githubusercontent.com/12506147/116965195-12603700-ac62-11eb-8203-a247e4cd1f1f.png)
 
 Fish in Animal Crossing have limited times of the day that they are available.  With five different time spans to keep track of, it can be difficult to know if any fish you'd like to catch are available without putting in the effort to look it up.
