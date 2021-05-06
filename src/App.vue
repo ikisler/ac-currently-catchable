@@ -2,8 +2,8 @@
     <header id="title">
         <h1>Animal Crossing New Horizons Currently Catchable</h1>
     </header>
-    <button @click="prevHour()">prev</button>
-    <button @click="nextHour()">next</button>
+    <button class="button-hours-prev" @click="prevHour()">prev</button>
+    <button class="button-hours-next" @click="nextHour()">next</button>
     <DateHeaderContainer :date="currentDate" :time="currentTime" />
     <ScheduleContainer :hours="hours" :month="month" :allFish="allFish" :fishSchedule="fishSchedule" :fishImageMap="fishImageMap" />
 </template>
