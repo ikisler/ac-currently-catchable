@@ -22,37 +22,38 @@ export default {
         fishSchedule: Object,
         fishImageMap: Object
     },
-    data() {
-        let scheduleData = [];
-        this.hours.forEach(hourData => {
-            let currentSchedule = [];
-            let schedule = this.fishSchedule[this.month];
-            let hourNum = Number(hourData[0].value);
+    computed: {
+        schedule() {
+            let scheduleData = [];
+            this.hours.forEach(hourData => {
+                let currentSchedule = [];
+                let schedule = this.fishSchedule[this.month];
+                let hourNum = Number(hourData[0].value);
 
-            // Will add at most two of these
-            if (hourData[4].value == 'PM' && hourNum > 9 || hourData[4].value == 'AM' && hourNum < 4) {
-                currentSchedule = currentSchedule.concat(schedule['9pm']);
-            }
+                // Will add at most two of these
+                if (hourData[4].value == 'PM' && hourNum >= 9 || hourData[4].value == 'AM' && hourNum <= 4) {
+                    currentSchedule = currentSchedule.concat(schedule['9pm']);
+                }
 
-            if (hourData[4].value == 'PM' && hourNum > 4 || hourData[4].value == 'AM' && hourNum < 9) {
-                currentSchedule = currentSchedule.concat(schedule['4pm']);
-            }
+                if (hourData[4].value == 'PM' && hourNum >= 4 || hourData[4].value == 'AM' && hourNum <= 9) {
+                    currentSchedule = currentSchedule.concat(schedule['4pm']);
+                }
 
-            if (hourData[4].value == 'AM' && hourNum > 9 || hourData[4].value == 'PM' && hourNum < 4) {
-                currentSchedule = currentSchedule.concat(schedule['9am']);
-            }
+                if (hourData[4].value == 'AM' && hourNum >= 9 || hourData[4].value == 'PM' && hourNum <= 4) {
+                    currentSchedule = currentSchedule.concat(schedule['9am']);
+                }
 
-            if (hourData[4].value == 'AM' && hourNum > 4 || hourData[4].value == 'PM' && hourNum < 9) {
-                currentSchedule = currentSchedule.concat(schedule['4am']);
-            }
+                if (hourData[4].value == 'AM' && hourNum >= 4 || hourData[4].value == 'PM' && hourNum <= 9) {
+                    currentSchedule = currentSchedule.concat(schedule['4am']);
+                }
 
-            scheduleData.push({
-                display: hourData[0].value + " " + hourData[4].value,
-                school: [...new Set([...currentSchedule, ...schedule.allDay])]
+                scheduleData.push({
+                    display: hourData[0].value + " " + hourData[4].value,
+                    school: [...new Set([...currentSchedule, ...schedule.allDay])]
+                });
             });
-        });
-        return {
-            schedule: scheduleData,
+
+            return scheduleData;
         }
     }
 }

@@ -2,8 +2,12 @@
     <header id="title">
         <h1>Animal Crossing New Horizons Currently Catchable</h1>
     </header>
-    <DateHeaderContainer :date="currentDate" :time="currentTime" />
-    <ScheduleContainer v-bind:hours="hours" v-bind:month="month" :allFish="allFish" :fishSchedule="fishSchedule" :fishImageMap="fishImageMap" />
+    <header>
+        <button class="button-hours button-hours-prev" @click="prevHour()">⏴ Previous</button>
+        <DateHeaderContainer :date="currentDate" :time="currentTime" />
+        <button class="button-hours button-hours-next" @click="nextHour()">Next ⏵</button>
+    </header>
+    <ScheduleContainer :hours="hours" :month="month" :allFish="allFish" :fishSchedule="fishSchedule" :fishImageMap="fishImageMap" />
 </template>
 
 <script>
@@ -20,27 +24,58 @@ export default {
     DateHeaderContainer
     },
     data() {
-        let now = new Date();
-        let dateFormat = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric'});
-        let dateString = dateFormat.format(now);
-        let timeFormat = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' });
-        let timeString = timeFormat.format(now);
-        let currentHour = timeFormat.formatToParts(now);
-        now.setHours(now.getHours() + 1);
-        let nextHour = timeFormat.formatToParts(now);
-        now.setHours(now.getHours() + 1);
-        let nextNextHour = timeFormat.formatToParts(now);
-        let hours = [currentHour, nextHour, nextNextHour];
-        let month = now.getMonth();
+        this.start = new Date();
+        this.updateUI();
 
         return {
-            currentDate: dateString,
-            currentTime: timeString,
-            hours: hours,
-            month: month,
+            currentDate: this.currentDate,
+            currentTime: this.currentTime,
+            hours: this.hours,
+            month: this.month,
             allFish: allFish,
             fishSchedule: fishSchedule,
-            fishImageMap: fishImageMap
+            fishImageMap: fishImageMap,
+            start: this.start,
+            end: this.end
+        }
+    },
+    methods: {
+        nextHour() {
+            this.start.setDate(this.end.getDate());
+            this.start.setMonth(this.end.getMonth());
+            this.start.setHours(this.end.getHours() + 1);
+            this.updateUI();
+        },
+        prevHour() {
+            this.start.setHours(this.start.getHours() - 3);
+            this.updateUI();
+        },
+        updateUI() {
+            this.setHours();
+            this.setDisplayDate();
+            this.setDisplayTime();
+        },
+        setHours() {
+            let now = new Date(this.start.getTime());
+            this.month = now.getMonth();
+            let timeFormat = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' });
+            let currentHour = timeFormat.formatToParts(now);
+            now.setHours(now.getHours() + 1);
+            let nextHour = timeFormat.formatToParts(now);
+            now.setHours(now.getHours() + 1);
+            let nextNextHour = timeFormat.formatToParts(now);
+            this.hours = [currentHour, nextHour, nextNextHour];
+            this.end = now;
+        },
+        setDisplayDate() {
+            let dateFormat = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric'});
+            this.currentDate = dateFormat.format(this.start);
+        },
+        setDisplayTime() {
+            let timeFormat = new Intl.DateTimeFormat('en-US', { hour: 'numeric'});
+            let startTime = timeFormat.format(this.start);
+            let endTime = timeFormat.format(this.end);
+            this.currentTime = startTime + ' - ' + endTime;
         }
     }
 }
@@ -57,11 +92,35 @@ body {
 h1 {
     font-weight: normal;
     font-family: 'Patua One', sans-serif, cursive;
-    text-align: center;
 }
 
 #app {
     max-width: 800px;
     margin: 0 auto;
+}
+
+header {
+    text-align: center;
+}
+
+.button-hours {
+    border: none;
+    background-color: #5c4f3b;
+    color: #fff;
+    padding: 0.3em 0.8em 0.3em 0.8em;
+    border-radius: 1em;
+    font-size: 1.2em;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.button-hours-next {
+    float: right;
+    margin-right: 2em;
+}
+
+.button-hours-prev {
+    float: left;
+    margin-left: 2em;
 }
 </style>
