@@ -1,12 +1,12 @@
 <template>
-    <header id="date-header">
+    <span id="date-header">
         <span>
             {{ date }}
         </span>
         <span>
             {{ time }}
         </span>
-    </header>
+    </span>
 </template>
 
 <script>
