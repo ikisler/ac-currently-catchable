@@ -6,7 +6,11 @@ class FishDetails {
     add(fish) {
         this.allFish[fish.name] = {
             name: fish.name,
-            size: fish['shadow size'].toLowerCase()
+            size: fish['shadow size'].toLowerCase(),
+            location: fish.location,
+            sell: parseInt(fish['sell nook']),
+            rarity: fish.rarity,
+            catch: parseInt(fish['total catch'])
         };
     }
 
