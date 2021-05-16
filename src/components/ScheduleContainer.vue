@@ -3,18 +3,20 @@
         <section class="hour-container" v-for="hour in schedule" :key="hour.display">
             <h1 class="hour-name">{{ hour.display }}</h1>
             <ul class="fish-container">
-                <li class="fish" v-for="fish in hour.school" :key="fish">
-                    <img :class="fishImageMap[allFish[fish].size].class" :src="require('@/assets/' + fishImageMap[allFish[fish].size].source)" :title="fishImageMap[allFish[fish].size].alt" :alt="fishImageMap[allFish[fish].size].alt">
-                    <span>{{ allFish[fish].name }}</span>
-                </li>
+                <FishContainer v-for="fish in hour.school" :key="fish" :fish="allFish[fish]" :fishImageMap="fishImageMap" />
             </ul>
         </section>
     </section>
 </template>
 
 <script>
+import FishContainer from './FishContainer.vue'
+
 export default {
     name: 'schedule',
+    components: {
+        FishContainer
+    },
     props: {
         hours: Array,
         month: Number,

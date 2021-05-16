@@ -89,7 +89,7 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-h1 {
+h1, h2, h3, h4 {
     font-weight: normal;
     font-family: 'Patua One', sans-serif, cursive;
 }
