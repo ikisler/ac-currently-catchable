@@ -1,15 +1,19 @@
 <template>
-    <div class="modal-backdrop" @click="close">
-        <div class="fish-details">
-            <button class="fish-details-close">Close</button>
-            <h3>{{ fishDetails.name }}</h3>
-            <span class="fish-details-name"><b>Size:</b></span><span>{{ fishDetails.size.charAt(0).toUpperCase() + fishDetails.size.slice(1) }}</span>
-            <span class="fish-details-name"><b>Location:</b></span><span>{{ fishDetails.location }}</span>
-            <span class="fish-details-name"><b>Sell price:</b></span><span>{{ fishDetails.sell.toLocaleString() }} bells</span>
-            <span class="fish-details-name" v-if="hasRarity"><b>Rarity:</b></span><span v-if="hasRarity">{{ fishDetails.rarity }}</span>
-            <span class="fish-details-name" v-if="hasCatches"><b>Required number of catches:</b></span><span v-if="hasCatches">{{ fishDetails.catch }}</span>
+    <transition name="details-fade">
+        <div class="details-backdrop" @click="close" role="dialog" aria-labelledby="detailsTitle" aria-describedby="detailsDescription">
+            <div class="fish-details">
+                <button class="fish-details-close" aria-label="Close modal">Close</button>
+                <h3 id="detailsTitle">{{ fishDetails.name }}</h3>
+                <div id="detailsDescription" class="fish-details-body">
+                    <span class="fish-details-name"><b>Size:</b></span><span>{{ fishDetails.size.charAt(0).toUpperCase() + fishDetails.size.slice(1) }}</span>
+                    <span class="fish-details-name"><b>Location:</b></span><span>{{ fishDetails.location }}</span>
+                    <span class="fish-details-name"><b>Sell price:</b></span><span>{{ fishDetails.sell.toLocaleString() }} bells</span>
+                    <span class="fish-details-name" v-if="hasRarity"><b>Rarity:</b></span><span v-if="hasRarity">{{ fishDetails.rarity }}</span>
+                    <span class="fish-details-name" v-if="hasCatches"><b>Required number of catches:</b></span><span v-if="hasCatches">{{ fishDetails.catch }}</span>
+                </div>
+            </div>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script>
@@ -38,7 +42,17 @@ export default {
 </script>
 
 <style>
-.modal-backdrop {
+.details-fade-enter-from,
+.details-fade-leave-to {
+    opacity: 0;
+}
+
+.details-fade-enter-active,
+.details-fade-leave-active {
+    transition: opacity .3s ease;
+}
+
+.details-backdrop {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -55,11 +69,14 @@ export default {
     background: #FFFFFF;
     box-shadow: 2px 2px 20px 1px;
     overflow-x: auto;
+    padding: 1em;
+    border-radius: 1em;
+}
+
+.fish-details-body {
     display: grid;
     gap: 10px;
     grid-template-columns: 50% 50%;
-    padding: 1em;
-    border-radius: 1em;
 }
 
 .fish-details h3 {
