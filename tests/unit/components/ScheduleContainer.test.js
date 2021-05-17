@@ -70,15 +70,19 @@ describe('ScheduleContainer.vue', () => {
     const hourName = wrapper.get('.hour-name');
     expect(hourName.text()).toMatch(hours[0][0].value + ' ' + hours[0][4].value);
 
-    const fishes = wrapper.findAll('.fish');
-
     // Should have three fish -- after 4pm, after 9pm, and all day fish
+    const fishes = wrapper.findAllComponents({name: 'FishContainer'});
     expect(fishes.length).toBe(3);
 
     // These fish should be in the container
-    expect(wrapper.get('.fish-container').text()).toMatch(/(Fish 1)/);
-    expect(wrapper.get('.fish-container').text()).toMatch(/(Fish 2)/);
-    expect(wrapper.get('.fish-container').text()).toMatch(/(Fish 3)/);
+    let text = '';
+    fishes.forEach(function(fish) {
+      text += fish.componentVM.fish.name;
+    });
+
+    expect(text).toMatch(/(Fish 1)/);
+    expect(text).toMatch(/(Fish 2)/);
+    expect(text).toMatch(/(Fish 3)/);
   });
 });
 
@@ -95,15 +99,19 @@ describe('ScheduleContainer.vue', () => {
     const hourName = wrapper.get('.hour-name');
     expect(hourName.text()).toMatch(hours[0][0].value + ' ' + hours[0][4].value);
 
-    const fishes = wrapper.findAll('.fish');
-
     // Should have three fish -- after 4am, after 9am, and all day fish
+    const fishes = wrapper.findAllComponents({name: 'FishContainer'});
     expect(fishes.length).toBe(3);
 
     // These fish should be in the container
-    expect(wrapper.get('.fish-container').text()).toMatch(/(Fish 1)/);
-    expect(wrapper.get('.fish-container').text()).toMatch(/(Fish 4)/);
-    expect(wrapper.get('.fish-container').text()).toMatch(/(Fish 5)/);
+    let text = '';
+    fishes.forEach(function(fish) {
+      text += fish.componentVM.fish.name;
+    });
+
+    expect(text).toMatch(/(Fish 1)/);
+    expect(text).toMatch(/(Fish 4)/);
+    expect(text).toMatch(/(Fish 5)/);
   });
 });
 
@@ -120,15 +128,19 @@ describe('ScheduleContainer.vue', () => {
     const hourName = wrapper.get('.hour-name');
     expect(hourName.text()).toMatch(hours[0][0].value + ' ' + hours[0][4].value);
 
-    const fishes = wrapper.findAll('.fish');
-
     // Should have three fish -- after 9pm, after 4pm, and all day fish
+    const fishes = wrapper.findAllComponents({name: 'FishContainer'});
     expect(fishes.length).toBe(3);
 
     // These fish should be in the container
-    expect(wrapper.get('.fish-container').text()).toMatch(/(Fish 1)/);
-    expect(wrapper.get('.fish-container').text()).toMatch(/(Fish 2)/);
-    expect(wrapper.get('.fish-container').text()).toMatch(/(Fish 3)/);
+    let text = '';
+    fishes.forEach(function(fish) {
+      text += fish.componentVM.fish.name;
+    });
+
+    expect(text).toMatch(/(Fish 1)/);
+    expect(text).toMatch(/(Fish 2)/);
+    expect(text).toMatch(/(Fish 3)/);
   });
 });
 
@@ -145,14 +157,18 @@ describe('ScheduleContainer.vue', () => {
     const hourName = wrapper.get('.hour-name');
     expect(hourName.text()).toMatch(hours[0][0].value + ' ' + hours[0][4].value);
 
-    const fishes = wrapper.findAll('.fish');
-
     // Should have three fish -- after 9pm, after 4am, and all day fish
+    const fishes = wrapper.findAllComponents({name: 'FishContainer'});
     expect(fishes.length).toBe(3);
 
     // These fish should be in the container
-    expect(wrapper.get('.fish-container').text()).toMatch(/(Fish 1)/);
-    expect(wrapper.get('.fish-container').text()).toMatch(/(Fish 2)/);
-    expect(wrapper.get('.fish-container').text()).toMatch(/(Fish 4)/);
+    let text = '';
+    fishes.forEach(function(fish) {
+      text += fish.componentVM.fish.name;
+    });
+
+    expect(text).toMatch(/(Fish 1)/);
+    expect(text).toMatch(/(Fish 2)/);
+    expect(text).toMatch(/(Fish 4)/);
   });
 });
