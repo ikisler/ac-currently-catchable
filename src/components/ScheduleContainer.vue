@@ -3,18 +3,20 @@
         <section class="hour-container" v-for="hour in schedule" :key="hour.display">
             <h1 class="hour-name">{{ hour.display }}</h1>
             <ul class="fish-container">
-                <li class="fish" v-for="fish in hour.school" :key="fish">
-                    <img :class="fishImageMap[allFish[fish].size].class" :src="require('@/assets/' + fishImageMap[allFish[fish].size].source)" :title="fishImageMap[allFish[fish].size].alt" :alt="fishImageMap[allFish[fish].size].alt">
-                    <span>{{ allFish[fish].name }}</span>
-                </li>
+                <FishContainer v-for="fish in hour.school" :key="fish" :fish="allFish[fish]" :fishImageMap="fishImageMap" />
             </ul>
         </section>
     </section>
 </template>
 
 <script>
+import FishContainer from './FishContainer.vue'
+
 export default {
     name: 'schedule',
+    components: {
+        FishContainer
+    },
     props: {
         hours: Array,
         month: Number,
@@ -92,57 +94,5 @@ export default {
 
 ul {
     padding-inline-start: 0;
-}
-
-li {
-    list-style-type: none;
-    margin: 1em;
-    border-radius: 1em;
-    padding: 2px 10px;
-}
-
-li:nth-of-type(n) {
-    background-color: #fff1ad;
-}
-
-li:nth-of-type(2n) {
-    background-color: #c5f9e5;
-}
-
-li:nth-of-type(3n) {
-    background-color: #e5c5f9;
-}
-
-li:nth-of-type(4n) {
-    background-color: #c5d9f9;
-}
-
-.fish img {
-    margin: 2px;
-    vertical-align: middle;
-}
-
-.fish-tiny {
-    width: 10px;
-}
-
-.fish-small {
-    width: 20px;
-}
-
-.fish-med {
-    width: 30px;
-}
-
-.fish-large {
-    width: 50px;
-}
-
-.fish-x-large {
-    width: 60px;
-}
-
-.fish-gigantic {
-    width: 70px;
 }
 </style>

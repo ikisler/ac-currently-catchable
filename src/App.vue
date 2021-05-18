@@ -3,9 +3,9 @@
         <h1>Animal Crossing New Horizons Currently Catchable</h1>
     </header>
     <header>
-        <button class="button-hours button-hours-prev" @click="prevHour()">⏴ Previous</button>
+        <button class="button-hours button-hours-prev clickable" @click="prevHour()">⏴ Previous</button>
         <DateHeaderContainer :date="currentDate" :time="currentTime" />
-        <button class="button-hours button-hours-next" @click="nextHour()">Next ⏵</button>
+        <button class="button-hours button-hours-next clickable" @click="nextHour()">Next ⏵</button>
     </header>
     <ScheduleContainer :hours="hours" :month="month" :allFish="allFish" :fishSchedule="fishSchedule" :fishImageMap="fishImageMap" />
 </template>
@@ -89,7 +89,7 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-h1 {
+h1, h2, h3, h4 {
     font-weight: normal;
     font-family: 'Patua One', sans-serif, cursive;
 }
@@ -122,5 +122,10 @@ header {
 .button-hours-prev {
     float: left;
     margin-left: 2em;
+}
+
+.clickable {
+    cursor: pointer;
+    box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.5);
 }
 </style>
